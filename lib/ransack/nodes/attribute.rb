@@ -19,9 +19,15 @@ module Ransack
       end
 
       def valid?
-        bound? && attr &&
+        if bound? && attr &&
         context.klassify(parent).ransackable_attributes(context.auth_object)
         .include?(attr_name)
+          return true
+        elsif Ransack.options[:allow_dynamic_attributes]
+          return true
+        else
+          return false
+        end
       end
 
       def type

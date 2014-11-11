@@ -120,8 +120,11 @@ module Ransack
     end
 
     def ransackable_attribute?(str, klass)
-      klass.ransackable_attributes(auth_object).include?(str) ||
-      klass.ransortable_attributes(auth_object).include?(str)
+      if Ransack.options[:allow_dynamic_attributes]
+        return true
+      else
+        return klass.ransackable_attributes(auth_object).include?(str) || klass.ransortable_attributes(auth_object).include?(str)
+      end
     end
 
     def ransackable_association?(str, klass)

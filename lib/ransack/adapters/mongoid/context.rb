@@ -38,6 +38,9 @@ module Ransack
 
           name = '_id' if name == 'id'
 
+          # fields[name] is not present for dynamic fields  :DP
+          return nil unless object.klass.fields[name].present?
+
           t = object.klass.fields[name].type
 
           t.to_s.demodulize.underscore.to_sym

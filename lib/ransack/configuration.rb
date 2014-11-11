@@ -8,7 +8,8 @@ module Ransack
     self.predicates = {}
     self.options = {
       :search_key => :q,
-      :ignore_unknown_conditions => true
+      :ignore_unknown_conditions => true,
+      :allow_dynamic_attributes => false
     }
 
     def configure
@@ -47,6 +48,9 @@ module Ransack
     # into a search
     def ignore_unknown_conditions=(boolean)
       self.options[:ignore_unknown_conditions] = boolean
+    end
+    def allow_dynamic_attributes=(boolean)
+      self.options[:allow_dynamic_attributes] = boolean
     end
 
     def arel_predicate_with_suffix(arel_predicate, suffix)
